@@ -1,0 +1,1104 @@
+
+<!doctype html>
+<html lang="ru" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Открытый API Mergen SDK (сканирование и верификация ID-карт КР) — iOS и Android">
+      
+      
+      
+      
+        <link rel="prev" href="scan.html">
+      
+      
+        <link rel="next" href="customization.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Верификация - Mergen SDK — API</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="assets/external/unpkg.com/iframe-worker/shim.js"></script>
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Перейти к содержанию
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Верхний колонтитул">
+    <a href="index.html" title="Mergen SDK — API" class="md-header__button md-logo" aria-label="Mergen SDK — API" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mergen SDK — API
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Верификация
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Тёмная тема"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Тёмная тема" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Светлая тема"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Светлая тема" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Поиск" placeholder="Поиск" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Поиск">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистить" aria-label="Очистить" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Инициализация поиска
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Навигация" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Mergen SDK — API" class="md-nav__button md-logo" aria-label="Mergen SDK — API" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mergen SDK — API
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Обзор
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="install.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Установка и лицензия
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="scan.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Сканирование
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Верификация
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="verify.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Верификация
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Содержание">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержание
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Точки входа
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Точки входа">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Тонкая настройка (configure)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verifyresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VerifyResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Статусы
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Выбор фото из галереи
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ошибки
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="customization.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Кастомизация вида
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="custom-ui.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Свой UI поверх сканера
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="states.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Состояния и события
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="config.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Конфигурация
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Содержание">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержание
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Точки входа
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Точки входа">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Тонкая настройка (configure)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verifyresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VerifyResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Статусы
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Выбор фото из галереи
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ошибки
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="_1">Верификация двух сторон<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>Сверка лицевой и оборотной стороны выполняется одним вызовом <code>verify</code>. Вход — либо
+завершённый скан камеры (<code>.scan</code>), либо сырое фото (<code>.image</code>), в любой комбинации.</p>
+<h2 id="_2">Точки входа<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">iOS</label><label for="__tabbed_1_2">Android</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// Рекомендуемая: универсальные входы</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kd">let</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">MergenSDK</span><span class="p">.</span><span class="n">verify</span><span class="p">(</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">front</span><span class="p">:</span><span class="w">   </span><span class="p">.</span><span class="n">scan</span><span class="p">(</span><span class="n">frontScan</span><span class="p">),</span><span class="w">          </span><span class="c1">// или .image(uiImage)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="n">back</span><span class="p">:</span><span class="w">    </span><span class="p">.</span><span class="n">scan</span><span class="p">(</span><span class="n">backScan</span><span class="p">),</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="n">license</span><span class="p">:</span><span class="w"> </span><span class="n">license</span><span class="p">,</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">strict</span><span class="p">:</span><span class="w">  </span><span class="kc">false</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1">// По двум фотографиям</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="kd">let</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">MergenSDK</span><span class="p">.</span><span class="n">verify</span><span class="p">(</span><span class="n">front</span><span class="p">:</span><span class="w"> </span><span class="n">frontImage</span><span class="p">,</span><span class="w"> </span><span class="n">back</span><span class="p">:</span><span class="w"> </span><span class="n">backImage</span><span class="p">,</span><span class="w"> </span><span class="n">license</span><span class="p">:</span><span class="w"> </span><span class="n">license</span><span class="p">)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c1">// Мгновенная stateless-сверка двух сканов камеры (~1 мс, без повторного OCR)</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="kd">let</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">MergenSDK</span><span class="p">.</span><span class="n">verifyCards</span><span class="p">(</span><span class="n">front</span><span class="p">:</span><span class="w"> </span><span class="n">frontScan</span><span class="p">,</span><span class="w"> </span><span class="n">back</span><span class="p">:</span><span class="w"> </span><span class="n">backScan</span><span class="p">,</span><span class="w"> </span><span class="n">license</span><span class="p">:</span><span class="w"> </span><span class="n">license</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// Рекомендуемая: универсальные входы (suspend)</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Mergen</span><span class="p">.</span><span class="na">verify</span><span class="p">(</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">front</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">MergenSideInput</span><span class="p">.</span><span class="na">Scan</span><span class="p">(</span><span class="n">frontScan</span><span class="p">),</span><span class="w">   </span><span class="c1">// или MergenSideInput.Image(bitmap)</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">back</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="n">MergenSideInput</span><span class="p">.</span><span class="na">Scan</span><span class="p">(</span><span class="n">backScan</span><span class="p">),</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="n">license</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">license</span><span class="p">,</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="n">strict</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="p">)</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1">// По двум фотографиям (suspend)</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Mergen</span><span class="p">.</span><span class="na">verify</span><span class="p">(</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="n">frontBitmap</span><span class="p">,</span><span class="w"> </span><span class="n">backBitmap</span><span class="p">,</span><span class="w"> </span><span class="n">license</span><span class="p">)</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="c1">// Мгновенная stateless-сверка двух сканов камеры (~1 мс, без повторного OCR)</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Mergen</span><span class="p">.</span><span class="na">verifyCards</span><span class="p">(</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="n">frontScan</span><span class="p">,</span><span class="w"> </span><span class="n">backScan</span><span class="p">,</span><span class="w"> </span><span class="n">license</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Как выбирается путь в универсальном <code>verify</code>:</p>
+<ul>
+<li>обе стороны — сканы камеры со снимками (<code>hasSideSnapshot == true</code>) → сначала мгновенная
+  stateless-сверка; если вердикт однозначен (успех или явное несовпадение документов) —
+  он и возвращается; иначе автоматически запускается полный OCR-пайплайн по кропам;</li>
+<li>любая сторона <code>.image</code> → полный OCR-пайплайн (секунды): вызывайте из фоновой задачи,
+  показывайте индикатор, UI обновляйте на главном потоке.</li>
+</ul>
+<p><code>strict: true</code> ужесточает вердикт: успех остаётся успехом только при строгом
+подтверждении «один и тот же документ».</p>
+<h3 id="configure">Тонкая настройка (<code>configure</code>)<a class="headerlink" href="#configure" title="Permanent link">&para;</a></h3>
+<p>Оба <code>verify</code> принимают необязательный блок конфигурации:</p>
+<table>
+<thead>
+<tr>
+<th>Поле</th>
+<th>По умолчанию</th>
+<th>Что делает</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>leanFields</code></td>
+<td><code>true</code></td>
+<td>читать только номер, ПИН и MRZ</td>
+</tr>
+<tr>
+<td><code>strictSameDocument</code></td>
+<td><code>false</code></td>
+<td>требовать строгий вердикт SAME_DOCUMENT (без допуска на спорное поле)</td>
+</tr>
+<tr>
+<td><code>retryBudget</code></td>
+<td>iOS 15 / Android 12</td>
+<td>сколько раз повторно подавать каждое фото в детекцию: больше — выше полнота, медленнее</td>
+</tr>
+<tr>
+<td><code>debugLogging</code></td>
+<td><code>false</code></td>
+<td>подробный лог</td>
+</tr>
+<tr>
+<td><code>diagnosticCallback</code></td>
+<td><code>nil</code></td>
+<td>пошаговая диагностика без персональных данных; вызывается в фоновом потоке</td>
+</tr>
+<tr>
+<td><code>useUnifiedDetector</code></td>
+<td><code>true</code></td>
+<td>должен совпадать со значением в <code>warmUp</code>/<code>preload</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="verifyresult"><code>VerifyResult</code><a class="headerlink" href="#verifyresult" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Что означает</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>status</code></td>
+<td><code>VerifyStatus</code></td>
+<td>главный вердикт (таблица ниже)</td>
+</tr>
+<tr>
+<td><code>verifyId</code></td>
+<td><code>String</code></td>
+<td><strong>итоговый номер документа</strong> после кросс-валидации сторон (пустая строка — недоступен)</td>
+</tr>
+<tr>
+<td><code>verifyPin</code></td>
+<td><code>String</code></td>
+<td><strong>итоговый ПИН</strong> после кросс-валидации</td>
+</tr>
+<tr>
+<td><code>docNumber</code> / <code>pin</code></td>
+<td><code>String?</code></td>
+<td>объединённые значения после сверки визуального чтения с MRZ</td>
+</tr>
+<tr>
+<td><code>mrzDocNumber</code> / <code>mrzPin</code></td>
+<td><code>String?</code></td>
+<td>значения, прочитанные из MRZ</td>
+</tr>
+<tr>
+<td><code>mrzFull</code></td>
+<td><code>String?</code></td>
+<td>строки MRZ через <code>\n</code></td>
+</tr>
+<tr>
+<td><code>mrzConfirmed</code></td>
+<td><code>Bool</code></td>
+<td>MRZ прочитан <strong>и</strong> контрольные суммы сошлись</td>
+</tr>
+<tr>
+<td><code>sameDocument</code></td>
+<td><code>SameDocumentVerdict</code></td>
+<td>вердикт «одна ли это карта»</td>
+</tr>
+<tr>
+<td><code>frontIssue</code> / <code>backIssue</code></td>
+<td><code>VerifySideIssue?</code></td>
+<td>что не так с конкретной стороной</td>
+</tr>
+<tr>
+<td><code>frontPhoto</code> / <code>backPhoto</code></td>
+<td><code>UIImage?</code> / <code>Bitmap?</code></td>
+<td>выправленные кропы карты — <strong>показывайте их</strong>, а не исходные фото</td>
+</tr>
+<tr>
+<td><code>mrzMatch</code></td>
+<td>список</td>
+<td>по-полевое сравнение визуального чтения с MRZ (поле, оба значения, совпадение, чексумма)</td>
+</tr>
+<tr>
+<td><code>frontDetectedGeneration</code> / <code>backDetectedGeneration</code></td>
+<td><code>MergenDocGeneration?</code></td>
+<td>поколение каждой стороны</td>
+</tr>
+<tr>
+<td><code>generationMismatch</code></td>
+<td>пара поколений или <code>nil</code></td>
+<td>подсказка «возможно, две разные карты» — трактовать как предупреждение, не как отказ</td>
+</tr>
+<tr>
+<td><code>message</code> / <code>messageEn</code></td>
+<td><code>String?</code></td>
+<td>готовый текст итога (рус/англ); <code>nil</code> при успехе</td>
+</tr>
+</tbody>
+</table>
+<p>Дополнительно на iOS: <code>docBadge</code> / <code>pinBadge</code> (<code>ConfidenceBadge</code>:
+<code>missing / uncertain / probable / confirmed</code>) — готовые бейджи уверенности для UI,
+и <code>frontFieldAvailability</code> / <code>backFieldAvailability</code> — какие источники данных физически
+есть у распознанного поколения (номер на стороне, ПИН на стороне, MRZ).</p>
+<h2 id="_3">Статусы<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p><code>VerifyStatus</code>:</p>
+<table>
+<thead>
+<tr>
+<th>iOS</th>
+<th>Android</th>
+<th>Смысл</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.verified</code></td>
+<td><code>VERIFIED</code></td>
+<td>стороны сверены, MRZ прочитан, контрольные суммы сошлись</td>
+</tr>
+<tr>
+<td><code>.verifiedVisual</code></td>
+<td><code>VERIFIED_VISUAL</code></td>
+<td>стороны совпали по номеру (и ПИН для 2008), MRZ не прочитан — <strong>это не отказ</strong></td>
+</tr>
+<tr>
+<td><code>.failedFront</code></td>
+<td><code>FAILED_FRONT</code></td>
+<td>лицевая сторона не прочитана</td>
+</tr>
+<tr>
+<td><code>.failedBack</code></td>
+<td><code>FAILED_BACK</code></td>
+<td>оборотная сторона не прочитана / нет MRZ и согласия сторон</td>
+</tr>
+<tr>
+<td><code>.failed</code></td>
+<td><code>FAILED</code></td>
+<td>несовпадение документов или жёсткий отказ</td>
+</tr>
+<tr>
+<td><code>.unknown</code></td>
+<td><code>UNKNOWN</code></td>
+<td>вердикт не сформирован</td>
+</tr>
+</tbody>
+</table>
+<p>Удобный признак на iOS: <code>status.isSuccess</code> (<code>verified || verifiedVisual</code>).</p>
+<p><code>VerifySideIssue</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Значение</th>
+<th>Смысл</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.wrongSide</code> / <code>WRONG_SIDE</code></td>
+<td>в слоте не та сторона (включая случай «оба фото — лицевая»)</td>
+</tr>
+<tr>
+<td><code>.notRecognized</code> / <code>NOT_RECOGNIZED</code></td>
+<td>сторона не распознана как KG ID</td>
+</tr>
+</tbody>
+</table>
+<p><code>SameDocumentVerdict</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Значение</th>
+<th>Смысл</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SAME_DOCUMENT</code></td>
+<td>обе стороны одного документа</td>
+</tr>
+<tr>
+<td><code>SAME_WITH_WARNING</code></td>
+<td>совпадение при одном спорном второстепенном поле</td>
+</tr>
+<tr>
+<td><code>MISMATCH</code></td>
+<td>противоречия — вероятно, разные карты</td>
+</tr>
+<tr>
+<td><code>SINGLE_SIDE</code></td>
+<td>сверка по одной стороне невозможна</td>
+</tr>
+<tr>
+<td><code>UNKNOWN</code></td>
+<td>не определено</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_4">Выбор фото из галереи<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>Готовые хелперы, чтобы не писать обвязку пикеров:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">iOS</label><label for="__tabbed_2_2">Android</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">// SwiftUI-обёртка системного пикера — для .sheet</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">MergenPhotoPicker</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="k">in</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="c1">// image: UIImage? (nil — отмена); закройте sheet сами</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">}</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">// Compose: системный Photo Picker (Android 13+) или GetContent</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kd">val</span><span class="w"> </span><span class="nv">openGallery</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rememberMergenGalleryLauncher</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">bitmap</span><span class="w"> </span><span class="o">-&gt;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="c1">// bitmap: Bitmap? (null — отмена), EXIF-ориентация уже исправлена</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">}</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">Button</span><span class="p">(</span><span class="n">onClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">openGallery</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Text</span><span class="p">(</span><span class="s">&quot;Галерея&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1">// Вне Compose: декодирование content-URI с EXIF-коррекцией</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bitmap</span><span class="p">:</span><span class="w"> </span><span class="n">Bitmap? </span><span class="o">=</span><span class="w"> </span><span class="n">Mergen</span><span class="p">.</span><span class="na">decodeImage</span><span class="p">(</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="n">uri</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Полученное изображение передаётся в <code>verify</code> как <code>.image(...)</code>. На экране результата
+показывайте <code>frontPhoto</code> / <code>backPhoto</code> из вердикта — это выправленная карта, а не
+исходное фото пользователя.</p>
+<h2 id="_5">Ошибки<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">iOS</label><label for="__tabbed_3_2">Android</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">catch</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">text</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="n">error</span><span class="w"> </span><span class="k">as</span><span class="p">?</span><span class="w"> </span><span class="n">MergenError</span><span class="p">)?.</span><span class="n">userMessage</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="n">error</span><span class="p">.</span><span class="n">localizedDescription</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="p">}</span>
+</code></pre></div>
+<p><code>MergenError</code>: <code>.licenseEmpty</code>, <code>.engineInitFailed</code>, <code>.cameraPermissionDenied</code> —
+у каждого готовый русский <code>userMessage</code>.</p>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">Exception</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="w"> </span><span class="k">as?</span><span class="w"> </span><span class="n">MergenException</span><span class="p">)</span><span class="o">?.</span><span class="na">userMessage</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">localizedMessage</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="p">}</span>
+</code></pre></div>
+<p><code>MergenException</code> — интерфейс с готовым русским <code>userMessage</code>; реализации:
+<code>CameraPermissionDeniedException</code>, <code>UnsupportedAbiException</code> (с полями
+<code>deviceAbis</code> / <code>supportedAbis</code>). Пустая лицензия — <code>IllegalStateException</code>,
+сбой инициализации движка — <code>RuntimeException</code>.</p>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  К началу
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Нижний колонтитул" >
+        
+          
+          <a href="scan.html" class="md-footer__link md-footer__link--prev" aria-label="Назад: Сканирование">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Назад
+              </span>
+              <div class="md-ellipsis">
+                Сканирование
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="customization.html" class="md-footer__link md-footer__link--next" aria-label="Вперед: Кастомизация вида">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Вперед
+              </span>
+              <div class="md-ellipsis">
+                Кастомизация вида
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.top", "navigation.footer", "content.code.copy", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0415\u0449\u0451 1 \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.more.other": "\u0415\u0449\u0451 # \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.none": "\u0421\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439 \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0435", "search.result.other": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439: #", "search.result.placeholder": "\u041d\u0430\u0447\u043d\u0438\u0442\u0435 \u043f\u0435\u0447\u0430\u0442\u0430\u0442\u044c \u0434\u043b\u044f \u043f\u043e\u0438\u0441\u043a\u0430", "search.result.term.missing": "\u041e\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442", "select.version": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0432\u0435\u0440\u0441\u0438\u044e"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="assets/external/unpkg.com/mermaid@11/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>
