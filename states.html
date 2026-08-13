@@ -463,6 +463,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#scanstatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ScanStatus — типизированный статус кадра
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#scannerevent" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -550,6 +561,17 @@
     <span class="md-ellipsis">
       
         ScannerFrameState
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scanstatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ScanStatus — типизированный статус кадра
       
     </span>
   </a>
@@ -678,6 +700,31 @@
 <td><code>Color</code> / <code>Int</code></td>
 <td>готовый цвет текущего состояния, выведенный из активного <code>ScannerStyle</code> — можно напрямую красить свою рамку</td>
 </tr>
+<tr>
+<td><code>scanStatus</code></td>
+<td><code>ScanStatus</code></td>
+<td>типизированный статус кадра — машиночитаемый эквивалент <code>messageTitle</code>; см. ниже</td>
+</tr>
+<tr>
+<td><code>isFingerOccluded</code></td>
+<td><code>Bool</code></td>
+<td>кадр-гейт видит палец / руку на данных — захват заблокирован, рамка красная</td>
+</tr>
+<tr>
+<td><code>isShadowed</code></td>
+<td><code>Bool</code></td>
+<td>кадр-гейт видит жёсткую тень на карте (проверка выключена по умолчанию — см. «Конфигурация»)</td>
+</tr>
+<tr>
+<td><code>occludedFieldId</code></td>
+<td><code>Int</code></td>
+<td>какое поле закрыто: <code>6</code> — номер документа, <code>12</code> — MRZ, <code>100</code> — фото владельца и т. д.; <code>-1</code> — назвать не удалось</td>
+</tr>
+<tr>
+<td><code>occlusionType</code></td>
+<td><code>OcclusionType</code></td>
+<td>чем закрыто: <code>FINGER</code> / <code>SHADOW</code> / <code>NONE</code> (iOS <code>.finger</code> / <code>.shadow</code> / <code>.none</code>)</td>
+</tr>
 </tbody>
 </table>
 <p>Пустое значение для инициализации: <code>ScannerFrameState.empty</code> (iOS) / <code>ScannerFrameState.EMPTY</code> (Android).</p>
@@ -685,9 +732,159 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>нет карты            → рамка colorIdle + приглашение
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>hasCard &amp;&amp; isScanning → рамка активного цвета + progress
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>isAnalyzing           → анимация «анализ»
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>activeColor == failure → красная рамка + messageTitle (не та сторона / не KG ID)
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>activeColor == failure → красная рамка + messageTitle (не та сторона / не KG ID / палец на данных)
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>isFinished &amp;&amp; isPassed → успех: галочка, вибрация, закрытие
 </code></pre></div>
+<h2 id="scanstatus"><code>ScanStatus</code> — типизированный статус кадра<a class="headerlink" href="#scanstatus" title="Permanent link">&para;</a></h2>
+<p><code>scanStatus</code> — машиночитаемая форма ровно той подсказки, которую SDK показал бы сам.
+Статус и встроенные строки (<code>messageTitle</code> / <code>messageHint</code> / <code>activeColor</code>) резолвятся
+в одном месте одним каскадом, поэтому разойтись они не могут: приложение может целиком
+перейти на свои тексты и свою локализацию, не рискуя «двумя голосами».</p>
+<p>За кадр активен ровно один статус — первый сверху, чьё условие выполнено:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Finished &gt; Capturing
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  &gt; WrongSide | NotKgDocument     (отклонение по стороне, удерживается)
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  &gt; Analyzing
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  &gt; CardOutsideGuide
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  &gt; FlipDocument
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  &gt; Occluded                      (палец / тень на данных — захват заблокирован)
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  &gt; TooClose &gt; TooFar
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>  &gt; TooBright &gt; TooDark           (TooDark возможен и без карты в кадре)
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>  &gt; HoldSteady
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>  &gt; NoCard
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Kotlin</th>
+<th>Swift</th>
+<th>Когда</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NoCard</code></td>
+<td><code>.noCard</code></td>
+<td>карты в кадре нет (стартовое значение)</td>
+</tr>
+<tr>
+<td><code>CardOutsideGuide</code></td>
+<td><code>.cardOutsideGuide</code></td>
+<td>карта видна, но лежит мимо направляющей рамки</td>
+</tr>
+<tr>
+<td><code>HoldSteady</code></td>
+<td><code>.holdSteady</code></td>
+<td>карта ведётся, всё в порядке — держите так</td>
+</tr>
+<tr>
+<td><code>Analyzing</code></td>
+<td><code>.analyzing</code></td>
+<td>короткое окно разбора стороны и поколения</td>
+</tr>
+<tr>
+<td><code>WrongSide</code></td>
+<td><code>.wrongSide</code></td>
+<td>показана не та сторона, которую ждёт флоу</td>
+</tr>
+<tr>
+<td><code>NotKgDocument</code></td>
+<td><code>.notKgDocument</code></td>
+<td>серия вердиктов «версия неизвестна»</td>
+</tr>
+<tr>
+<td><code>FlipDocument</code></td>
+<td><code>.flipDocument</code></td>
+<td>двусторонний флоу: первая сторона принята, ждём переворот</td>
+</tr>
+<tr>
+<td><code>Occluded</code></td>
+<td><code>.occluded</code></td>
+<td><strong>новое в 2.6.0</strong> — палец или тень на данных, захват заблокирован</td>
+</tr>
+<tr>
+<td><code>TooClose</code> / <code>TooFar</code></td>
+<td><code>.tooClose</code> / <code>.tooFar</code></td>
+<td>дистанция до карты</td>
+</tr>
+<tr>
+<td><code>TooBright</code> / <code>TooDark</code></td>
+<td><code>.tooBright</code> / <code>.tooDark</code></td>
+<td>освещение</td>
+</tr>
+<tr>
+<td><code>Capturing</code></td>
+<td><code>.capturing</code></td>
+<td>кадр принят, идут съёмка и распознавание</td>
+</tr>
+<tr>
+<td><code>Finished(success)</code></td>
+<td><code>.finished(success:)</code></td>
+<td>пайплайн завершён; неудача приходит сюда же</td>
+</tr>
+</tbody>
+</table>
+<p>Статус <strong>уже сглажен</strong> SDK: он наследует гистерезисы своих источников (удержание
+отклонений по стороне, разные пороги входа и выхода у дистанции, дебаунс подсказок,
+окно анализа). Собственный дебаунс поверх него не нужен и только добавит задержку.</p>
+<p>Две оговорки:</p>
+<ul>
+<li><code>NotKgDocument</code> — это прокси по серии неуверенных классификаций, а не классификатор
+  чужих документов: чужой документ чаще вовсе не детектируется как карта и даёт <code>NoCard</code>.
+  Формулируйте текст осторожно.</li>
+<li><code>FlipDocument</code> на iOS объявляет ваш флоу (<code>MergenScannerView(awaitingFlip:)</code> или
+  <code>MergenScannerStateHandle.setAwaitingFlip(_:)</code>): шаг переворота идёт при остановленной
+  камере, кадров в этот момент нет. На Android двусторонний режим ведёт сам SDK.</li>
+</ul>
+<div class="admonition danger">
+<p class="admonition-title">Ломающее изменение 2.6.0 — новый кейс <code>Occluded</code> / <code>.occluded</code></p>
+<p>Кейс добавлен в существующее перечисление, поэтому <strong>исчерпывающие <code>when</code> (Kotlin)
+и <code>switch</code> (Swift) перестанут компилироваться</strong>, пока в них не появится новая ветка.
+Это единственное изменение публичного API в 2.6.0.</p>
+<p>Раньше на таких кадрах приходил <code>HoldSteady</code> («держите неподвижно») — при красной
+рамке и физически заблокированном захвате это прямо вводило пользователя
+в заблуждение, поэтому кейс и понадобился.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Kotlin</label><label for="__tabbed_1_2">Swift</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">hint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">state</span><span class="p">.</span><span class="na">scanStatus</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="n">ScanStatus</span><span class="p">.</span><span class="na">NoCard</span><span class="w">      </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;Наведите камеру на документ&quot;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">ScanStatus</span><span class="p">.</span><span class="na">TooFar</span><span class="w">      </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;Поднесите ближе&quot;</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="c1">// НОВОЕ в 2.6.0: палец или тень на данных, захват заблокирован</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="n">ScanStatus</span><span class="p">.</span><span class="na">Occluded</span><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="p">(</span><span class="n">state</span><span class="p">.</span><span class="na">occlusionType</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">        </span><span class="n">OcclusionType</span><span class="p">.</span><span class="na">FINGER</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;Уберите палец с документа&quot;</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">        </span><span class="n">OcclusionType</span><span class="p">.</span><span class="na">SHADOW</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;Уберите тень&quot;</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">        </span><span class="n">OcclusionType</span><span class="p">.</span><span class="na">NONE</span><span class="w">   </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="k">is</span><span class="w"> </span><span class="n">ScanStatus</span><span class="p">.</span><span class="na">Finished</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="na">success</span><span class="p">)</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s">&quot;Не удалось отсканировать&quot;</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="k">else</span><span class="w">                   </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="p">}</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">let</span><span class="w"> </span><span class="nv">hint</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">switch</span><span class="w"> </span><span class="n">state</span><span class="p">.</span><span class="n">scanStatus</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">noCard</span><span class="p">:</span><span class="w"> </span><span class="n">hint</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Наведите камеру на документ&quot;</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">tooFar</span><span class="p">:</span><span class="w"> </span><span class="n">hint</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Поднесите ближе&quot;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1">// НОВОЕ в 2.6.0: палец или тень на данных, захват заблокирован</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">occluded</span><span class="p">:</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="n">state</span><span class="p">.</span><span class="n">occlusionType</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">finger</span><span class="p">:</span><span class="w"> </span><span class="n">hint</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Уберите палец с документа&quot;</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">shadow</span><span class="p">:</span><span class="w"> </span><span class="n">hint</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Уберите тень&quot;</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="kr">none</span><span class="p">:</span><span class="w">   </span><span class="n">hint</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">finished</span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nv">success</span><span class="p">):</span><span class="w"> </span><span class="n">hint</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">success</span><span class="w"> </span><span class="p">?</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Не удалось отсканировать&quot;</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="k">default</span><span class="p">:</span><span class="w"> </span><span class="n">hint</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Ветка <code>else</code> / <code>default</code> спасает от ошибки компиляции, но не от молчаливого UI:
+пока <code>Occluded</code> попадает в неё, пользователь при заблокированном захвате не увидит
+ничего. Минимальный обратно совместимый вариант — оставить общую ветку и смотреть
+на поля того же кадра (<code>isFingerOccluded</code>, <code>isShadowed</code>); готовая русская строка
+с названием закрытого поля уже лежит в <code>messageTitle</code>.</p>
+</div>
 <h2 id="scannerevent"><code>ScannerEvent</code><a class="headerlink" href="#scannerevent" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -731,24 +928,24 @@
 </tbody>
 </table>
 <p>Где подписываться:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">iOS</label><label for="__tabbed_1_2">Android</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">iOS</label><label for="__tabbed_2_2">Android</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// Клоужер</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">MergenScannerView</span><span class="p">(...,</span><span class="w"> </span><span class="n">onEvent</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">event</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1">// Или поток (headless-хэндл и UIKit-контроллер)</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">for</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">event</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">handle</span><span class="p">.</span><span class="n">events</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">// Клоужер</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">MergenScannerView</span><span class="p">(...,</span><span class="w"> </span><span class="n">onEvent</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">event</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1">// Или поток (headless-хэндл и UIKit-контроллер)</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">for</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">event</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">handle</span><span class="p">.</span><span class="n">events</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
 <p><code>events</code> — <code>AsyncStream</code>; <strong>каждое обращение к свойству создаёт новый стрим</strong> —
 получите его один раз и держите.</p>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">// Клоужер</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">MergenScannerView</span><span class="p">(...,</span><span class="w"> </span><span class="n">onEvent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">event</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="p">...)</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1">// Или поток (Compose-вью, XML-вью, headless-хэндл)</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">scope</span><span class="p">.</span><span class="na">launch</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">handle</span><span class="p">.</span><span class="na">events</span><span class="p">.</span><span class="na">collect</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">event</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">// Клоужер</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">MergenScannerView</span><span class="p">(...,</span><span class="w"> </span><span class="n">onEvent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">event</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="p">...)</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1">// Или поток (Compose-вью, XML-вью, headless-хэндл)</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">scope</span><span class="p">.</span><span class="na">launch</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">handle</span><span class="p">.</span><span class="na">events</span><span class="p">.</span><span class="na">collect</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">event</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
 <p><code>events</code> — hot <code>Flow</code>: события без активного подписчика теряются — собирайте,
 пока экран виден.</p>
@@ -756,29 +953,29 @@
 </div>
 </div>
 <h2 id="_2">Ошибки и проверка устройства<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">iOS</label><label for="__tabbed_2_2">Android</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">iOS</label><label for="__tabbed_3_2">Android</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">MergenError</span><span class="p">:</span><span class="w"> </span><span class="n">Error</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">licenseEmpty</span><span class="w">            </span><span class="c1">// «Лицензия не найдена…»</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">engineInitFailed</span><span class="w">        </span><span class="c1">// «Не удалось инициализировать распознавание…»</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">cameraPermissionDenied</span><span class="w">  </span><span class="c1">// «Нет доступа к камере…»</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">userMessage</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kr">get</span><span class="w"> </span><span class="p">}</span><span class="w">   </span><span class="c1">// готовый русский текст</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">MergenError</span><span class="p">:</span><span class="w"> </span><span class="n">Error</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">licenseEmpty</span><span class="w">            </span><span class="c1">// «Лицензия не найдена…»</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">engineInitFailed</span><span class="w">        </span><span class="c1">// «Не удалось инициализировать распознавание…»</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">cameraPermissionDenied</span><span class="w">  </span><span class="c1">// «Нет доступа к камере…»</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">userMessage</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kr">get</span><span class="w"> </span><span class="p">}</span><span class="w">   </span><span class="c1">// готовый русский текст</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="p">}</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">sealed</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nc">MergenException</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">userMessage</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">// готовый русский текст</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kd">class</span><span class="w"> </span><span class="nc">CameraPermissionDeniedException</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">SecurityException</span><span class="p">,</span><span class="w"> </span><span class="n">MergenException</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="kd">class</span><span class="w"> </span><span class="nc">UnsupportedAbiException</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">IllegalStateException</span><span class="p">,</span><span class="w"> </span><span class="n">MergenException</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">deviceAbis</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">supportedAbis</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="p">}</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="c1">// Проверка ДО открытия сканера (SDK работает только на 64-битных ARM):</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="n">Mergen</span><span class="p">.</span><span class="na">isDeviceSupported</span><span class="p">():</span><span class="w"> </span><span class="kt">Boolean</span>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="n">Mergen</span><span class="p">.</span><span class="na">unsupportedDeviceReason</span><span class="p">():</span><span class="w"> </span><span class="n">UnsupportedAbiException?</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kd">sealed</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nc">MergenException</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">userMessage</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">// готовый русский текст</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="kd">class</span><span class="w"> </span><span class="nc">CameraPermissionDeniedException</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">SecurityException</span><span class="p">,</span><span class="w"> </span><span class="n">MergenException</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="kd">class</span><span class="w"> </span><span class="nc">UnsupportedAbiException</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">IllegalStateException</span><span class="p">,</span><span class="w"> </span><span class="n">MergenException</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">deviceAbis</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">supportedAbis</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="p">}</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="c1">// Проверка ДО открытия сканера (SDK работает только на 64-битных ARM):</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="n">Mergen</span><span class="p">.</span><span class="na">isDeviceSupported</span><span class="p">():</span><span class="w"> </span><span class="kt">Boolean</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="n">Mergen</span><span class="p">.</span><span class="na">unsupportedDeviceReason</span><span class="p">():</span><span class="w"> </span><span class="n">UnsupportedAbiException?</span>
 </code></pre></div>
 </div>
 </div>

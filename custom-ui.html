@@ -710,6 +710,10 @@
 </div>
 </div>
 </div>
+<p>Свои тексты стройте по <code>state.scanStatus</code> — один типизированный статус на кадр, уже
+сглаженный SDK (см. «Состояния и события»). Отдельно обработайте <code>Occluded</code> / <code>.occluded</code>:
+пока он активен, движок <strong>не захватывает кадр</strong> (палец на данных), и если ваш оверлей
+об этом промолчит, пользователь увидит просто замерший сканер.</p>
 <h3 id="mergenscannerview"><code>MergenScannerView</code> с кастомным оверлеем<a class="headerlink" href="#mergenscannerview" title="Permanent link">&para;</a></h3>
 <p>Полный сканер (двусторонний режим, экран результата, жизненный цикл) с вашим слоем UI:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:4"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">iOS (SwiftUI)</label><label for="__tabbed_2_2">iOS (UIKit)</label><label for="__tabbed_2_3">Android (Compose)</label><label for="__tabbed_2_4">Android (XML)</label></div>

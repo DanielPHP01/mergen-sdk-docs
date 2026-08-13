@@ -377,6 +377,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#frame-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Кадр-гейт: палец на данных и авто-разворот
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#mergenscanresult" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -590,6 +601,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#frame-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Кадр-гейт: палец на данных и авто-разворот
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#mergenscanresult" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -719,6 +741,39 @@ side-gate'ом (см. «Конфигурация»).</p>
 <strong>Одинаковые числа дают разные окна.</strong> Эквивалентная пара значений:
 iOS <code>CGRect(x: 0.05, y: 0.28, width: 0.90, height: 0.44)</code> ≡
 Android <code>RectF(0.28f, 0.05f, 0.72f, 0.95f)</code>.</p>
+</div>
+<h2 id="frame-gate">Кадр-гейт: палец на данных и авто-разворот<a class="headerlink" href="#frame-gate" title="Permanent link">&para;</a></h2>
+<p>Во время наведения SDK раз в 350 мс прогоняет по выпрямленному кропу карты отдельную
+модель кадр-гейта. Обе её функции включены по умолчанию и видны пользователю.</p>
+<p><strong>Перевёрнутая карта разворачивается сама.</strong> Ориентация определяется до распознавания
+(точность 0.9963 на реальных кропах), и в OCR кроп уходит уже «головой вверх». Раньше
+перевёрнутый документ стоил повторного прогона всего каскада — на устройстве это секунды
+ожидания, — и мог получить неверно определённую сторону.</p>
+<p><strong>Палец на данных блокирует захват.</strong> Пока помеха видна:</p>
+<ul>
+<li>рамка карты горит цветом <code>colorFailure</code> (по умолчанию красным) — так же, как при
+  отклонении по стороне документа;</li>
+<li><code>messageTitle</code> называет закрытое поле: «Уберите палец с номера документа»,
+  «Уберите палец с MRZ», «Уберите палец с фото». Когда поле назвать не удалось —
+  «Уберите палец с документа»;</li>
+<li>скан не завершается сам собой: захват удерживается, пока палец не уберут.</li>
+</ul>
+<p>Порог выставлен консервативно: на реальных кадрах помеха ловится в 11 случаях из 12,
+а ложных срабатываний нет ни на 68 чистых кропах, ни на 12 кадрах «карту держат за кромку»,
+ни на 38 лицевых сторонах с портретом — портрет владельца за палец не принимается.
+Закрытое поле называется верно примерно в 8 случаях из 10.</p>
+<p>Предохранитель: если помеха «видна» непрерывно дольше 20 с, блокировка снимается. Ложное
+срабатывание не должно превращаться в «документ невозможно отсканировать».</p>
+<p>Проверки тени и грязи в модели есть, но <strong>выключены по умолчанию</strong> — почему именно,
+написано в <a href="config.html#frame-gate">«Конфигурации»</a> вместе со всеми ключами гейта.</p>
+<p>Своему UI помеха доступна тремя способами сразу — они не могут разойтись: статус
+<code>ScanStatus.Occluded</code> / <code>.occluded</code>, поля кадра <code>isFingerOccluded</code> / <code>isShadowed</code> /
+<code>occlusionType</code> / <code>occludedFieldId</code> и готовая строка <code>messageTitle</code>.</p>
+<div class="admonition danger">
+<p class="admonition-title">Ломающее изменение 2.6.0</p>
+<p>Статус <code>Occluded</code> / <code>.occluded</code> добавлен в существующее перечисление <code>ScanStatus</code>:
+исчерпывающие <code>when</code> (Kotlin) и <code>switch</code> (Swift) без новой ветки не соберутся.
+Примеры миграции — в разделе <a href="states.html#scanstatus">«Состояния и события»</a>.</p>
 </div>
 <h2 id="mergenscanresult"><code>MergenScanResult</code> — результат скана стороны<a class="headerlink" href="#mergenscanresult" title="Permanent link">&para;</a></h2>
 <table>
