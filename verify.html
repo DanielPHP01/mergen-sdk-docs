@@ -421,6 +421,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#261" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Причина отказа: палец или тень (2.6.1)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -635,6 +646,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#261" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Причина отказа: палец или тень (2.6.1)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -823,6 +845,11 @@
 <td>что не так с конкретной стороной</td>
 </tr>
 <tr>
+<td><code>frontOcclusion</code> / <code>backOcclusion</code></td>
+<td><code>OcclusionType</code></td>
+<td><strong>новое в 2.6.1</strong> — заслонение стороны по вердикту кадр-гейта: <code>finger</code> / <code>shadow</code> / <code>none</code>; заполняется на image-входах (галерея)</td>
+</tr>
+<tr>
 <td><code>frontPhoto</code> / <code>backPhoto</code></td>
 <td><code>UIImage?</code> / <code>Bitmap?</code></td>
 <td>выправленные кропы карты — <strong>показывайте их</strong>, а не исходные фото</td>
@@ -916,6 +943,34 @@
 </tr>
 </tbody>
 </table>
+<h2 id="261">Причина отказа: палец или тень (2.6.1)<a class="headerlink" href="#261" title="Permanent link">&para;</a></h2>
+<p>Когда сторона подана изображением (галерея) и кадр-гейт видит заслонение,
+<code>frontOcclusion</code> / <code>backOcclusion</code> называют причину — проверяйте их <strong>раньше</strong>
+<code>frontIssue</code>/<code>backIssue</code> и показывайте адресный текст:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">iOS</label><label for="__tabbed_2_2">Android</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">let</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">MergenSDK</span><span class="p">.</span><span class="n">verify</span><span class="p">(</span><span class="n">front</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">image</span><span class="p">(</span><span class="n">f</span><span class="p">),</span><span class="w"> </span><span class="n">back</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">image</span><span class="p">(</span><span class="n">b</span><span class="p">),</span><span class="w"> </span><span class="n">license</span><span class="p">:</span><span class="w"> </span><span class="n">license</span><span class="p">)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">frontOcclusion</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">finger</span><span class="p">:</span><span class="w"> </span><span class="n">showError</span><span class="p">(</span><span class="s">"Палец закрывает данные на лицевой стороне — переснимите её"</span><span class="p">)</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">shadow</span><span class="p">:</span><span class="w"> </span><span class="n">showError</span><span class="p">(</span><span class="s">"Тень закрывает данные на лицевой стороне — переснимите её"</span><span class="p">)</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="kr">none</span><span class="p">:</span><span class="w">   </span><span class="k">break</span><span class="w"> </span><span class="c1">// разбирайте status / frontIssue как обычно</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">}</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Mergen</span><span class="p">.</span><span class="na">verify</span><span class="p">(</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="n">front</span><span class="p">,</span><span class="w"> </span><span class="n">back</span><span class="p">,</span><span class="w"> </span><span class="n">license</span><span class="p">)</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">when</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="na">frontOcclusion</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">OcclusionType</span><span class="p">.</span><span class="na">FINGER</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">showError</span><span class="p">(</span><span class="s">"Палец закрывает данные на лицевой стороне — переснимите её"</span><span class="p">)</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="n">OcclusionType</span><span class="p">.</span><span class="na">SHADOW</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">showError</span><span class="p">(</span><span class="s">"Тень закрывает данные на лицевой стороне — переснимите её"</span><span class="p">)</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">OcclusionType</span><span class="p">.</span><span class="na">NONE</span><span class="w">   </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="w"> </span><span class="c1">// разбирайте status / frontIssue как обычно</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Для стороны, снятой живой камерой, значение всегда <code>none</code> — там палец блокируется
+ещё в момент съёмки (см. <a href="states.html">Состояния сканирования</a>).</p>
 <p><code>SameDocumentVerdict</code>:</p>
 <table>
 <thead>
@@ -949,24 +1004,24 @@
 </table>
 <h2 id="_4">Выбор фото из галереи<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>Готовые хелперы, чтобы не писать обвязку пикеров:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">iOS</label><label for="__tabbed_2_2">Android</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">iOS</label><label for="__tabbed_3_2">Android</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">// SwiftUI-обёртка системного пикера — для .sheet</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">MergenPhotoPicker</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="k">in</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="c1">// image: UIImage? (nil — отмена); закройте sheet сами</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">// SwiftUI-обёртка системного пикера — для .sheet</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">MergenPhotoPicker</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="k">in</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="c1">// image: UIImage? (nil — отмена); закройте sheet сами</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="p">}</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">// Compose: системный Photo Picker (Android 13+) или GetContent</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kd">val</span><span class="w"> </span><span class="nv">openGallery</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rememberMergenGalleryLauncher</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">bitmap</span><span class="w"> </span><span class="o">-&gt;</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="c1">// bitmap: Bitmap? (null — отмена), EXIF-ориентация уже исправлена</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">}</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">Button</span><span class="p">(</span><span class="n">onClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">openGallery</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Text</span><span class="p">(</span><span class="s">&quot;Галерея&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1">// Вне Compose: декодирование content-URI с EXIF-коррекцией</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bitmap</span><span class="p">:</span><span class="w"> </span><span class="n">Bitmap? </span><span class="o">=</span><span class="w"> </span><span class="n">Mergen</span><span class="p">.</span><span class="na">decodeImage</span><span class="p">(</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="n">uri</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">// Compose: системный Photo Picker (Android 13+) или GetContent</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kd">val</span><span class="w"> </span><span class="nv">openGallery</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rememberMergenGalleryLauncher</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">bitmap</span><span class="w"> </span><span class="o">-&gt;</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="c1">// bitmap: Bitmap? (null — отмена), EXIF-ориентация уже исправлена</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="p">}</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">Button</span><span class="p">(</span><span class="n">onClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">openGallery</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Text</span><span class="p">(</span><span class="s">"Галерея"</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="c1">// Вне Compose: декодирование content-URI с EXIF-коррекцией</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bitmap</span><span class="p">:</span><span class="w"> </span><span class="n">Bitmap?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Mergen</span><span class="p">.</span><span class="na">decodeImage</span><span class="p">(</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="n">uri</span><span class="p">)</span>
 </code></pre></div>
 </div>
 </div>
@@ -975,20 +1030,20 @@
 показывайте <code>frontPhoto</code> / <code>backPhoto</code> из вердикта — это выправленная карта, а не
 исходное фото пользователя.</p>
 <h2 id="_5">Ошибки<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">iOS</label><label for="__tabbed_3_2">Android</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">iOS</label><label for="__tabbed_4_2">Android</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">catch</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">text</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="n">error</span><span class="w"> </span><span class="k">as</span><span class="p">?</span><span class="w"> </span><span class="n">MergenError</span><span class="p">)?.</span><span class="n">userMessage</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="n">error</span><span class="p">.</span><span class="n">localizedDescription</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">catch</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">text</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="n">error</span><span class="w"> </span><span class="k">as</span><span class="p">?</span><span class="w"> </span><span class="n">MergenError</span><span class="p">)?.</span><span class="n">userMessage</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="n">error</span><span class="p">.</span><span class="n">localizedDescription</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="p">}</span>
 </code></pre></div>
 <p><code>MergenError</code>: <code>.licenseEmpty</code>, <code>.engineInitFailed</code>, <code>.cameraPermissionDenied</code> —
 у каждого готовый русский <code>userMessage</code>.</p>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">Exception</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="w"> </span><span class="k">as?</span><span class="w"> </span><span class="n">MergenException</span><span class="p">)</span><span class="o">?.</span><span class="na">userMessage</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">localizedMessage</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">Exception</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="w"> </span><span class="k">as?</span><span class="w"> </span><span class="n">MergenException</span><span class="p">)</span><span class="o">?.</span><span class="na">userMessage</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">localizedMessage</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="p">}</span>
 </code></pre></div>
 <p><code>MergenException</code> — интерфейс с готовым русским <code>userMessage</code>; реализации:
 <code>CameraPermissionDeniedException</code>, <code>UnsupportedAbiException</code> (с полями
