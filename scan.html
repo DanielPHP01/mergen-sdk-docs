@@ -377,10 +377,43 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#scan-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Режимы сканирования: Lite / Post / Live
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hq-crop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HQ-кроп для отправки на сервер
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#distance-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Гейт дистанции
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#frame-gate" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Кадр-гейт: палец на данных и авто-разворот
+        Проверка качества: палец на фото и авто-разворот
       
     </span>
   </a>
@@ -601,10 +634,43 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#scan-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Режимы сканирования: Lite / Post / Live
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hq-crop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HQ-кроп для отправки на сервер
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#distance-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Гейт дистанции
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#frame-gate" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Кадр-гейт: палец на данных и авто-разворот
+        Проверка качества: палец на фото и авто-разворот
       
     </span>
   </a>
@@ -653,6 +719,9 @@
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1">// Прогрев + упреждающая загрузка MRZ-моделей (для сценариев с verify)</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">MergenSDK</span><span class="p">.</span><span class="n">preload</span><span class="p">(</span><span class="n">licenseKey</span><span class="p">:</span><span class="w"> </span><span class="n">license</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1">// С режимом сканирования (с 2.8.0) — то же значение, что в конфигурации сканера</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">MergenSDK</span><span class="p">.</span><span class="n">warmUp</span><span class="p">(</span><span class="n">license</span><span class="p">:</span><span class="w"> </span><span class="n">license</span><span class="p">,</span><span class="w"> </span><span class="n">scanMode</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">post</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -661,17 +730,22 @@
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1">// Прогрев + упреждающая загрузка MRZ-моделей (для сценариев с verify)</span>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">Mergen</span><span class="p">.</span><span class="na">preload</span><span class="p">(</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="n">license</span><span class="p">)</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1">// С режимом сканирования (с 2.8.0) — то же значение, что в MergenScanView</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">Mergen</span><span class="p">.</span><span class="na">warmUp</span><span class="p">(</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="n">license</span><span class="p">,</span><span class="w"> </span><span class="n">scanMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ScanMode</span><span class="p">.</span><span class="na">POST</span><span class="p">)</span>
 </code></pre></div>
 </div>
 </div>
 </div>
 <p>Оба вызова идемпотентны. Параметры <code>leanFields</code> / <code>useUnifiedDetector</code> (по умолчанию <code>true</code>)
-должны совпадать с теми, что будут использоваться при сканировании и верификации — иначе
-прогретый движок не переиспользуется. На устройствах с ОЗУ меньше 5 ГБ упреждающая
-загрузка MRZ-моделей автоматически пропускается (защита от нехватки памяти) — верификация
-в этом случае догрузит их по требованию.</p>
+и <code>scanMode</code> (по умолчанию <code>LIVE</code>) должны совпадать с теми, что будут использоваться при
+сканировании и верификации — иначе прогретый движок не переиспользуется. Для <code>LITE</code> это
+ещё и экономия памяти: модели распознавания не загружаются. На устройствах с ОЗУ меньше
+5 ГБ упреждающая загрузка MRZ-моделей автоматически пропускается (защита от нехватки
+памяти) — верификация в этом случае догрузит их по требованию.</p>
 <h2 id="android">Проверка поддержки устройства (Android)<a class="headerlink" href="#android" title="Permanent link">&para;</a></h2>
-<p>SDK работает только на 64-битных ARM-устройствах. Проверяйте <strong>до</strong> открытия сканера:</p>
+<p>SDK работает на ARM-устройствах (<code>arm64-v8a</code> и с 2.7.0 — 32-битные <code>armeabi-v7a</code>).
+Проверяйте <strong>до</strong> открытия сканера:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">Mergen</span><span class="p">.</span><span class="na">isDeviceSupported</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">reason</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Mergen</span><span class="p">.</span><span class="na">unsupportedDeviceReason</span><span class="p">()</span><span class="w">   </span><span class="c1">// UnsupportedAbiException? с userMessage</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="c1">// покажите reason?.userMessage и предложите альтернативный путь</span>
@@ -686,7 +760,7 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">MergenScanView</span><span class="p">(</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">side</span><span class="p">:</span><span class="w">                </span><span class="n">MIDSide</span><span class="p">,</span><span class="w">                          </span><span class="c1">// .front / .back</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">license</span><span class="p">:</span><span class="w">             </span><span class="nb">String</span><span class="p">?</span><span class="w">              </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w">       </span><span class="c1">// nil → license.json из бандла</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="n">configuration</span><span class="p">:</span><span class="w">       </span><span class="n">MergenScannerConfig</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="kd">init</span><span class="p">(),</span><span class="w">   </span><span class="c1">// см. «Конфигурация»</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="n">configuration</span><span class="p">:</span><span class="w">       </span><span class="n">MergenScannerConfig</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="kd">init</span><span class="p">(),</span><span class="w">   </span><span class="c1">// scanMode, hqCropEnabled, distanceGate… — см. «Конфигурация»</span>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">bboxColor</span><span class="p">:</span><span class="w">           </span><span class="nb">String</span><span class="p">?</span><span class="w">              </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w">       </span><span class="c1">// hex &quot;RRGGBB&quot;/&quot;RRGGBBAA&quot;</span>
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="n">bboxStyle</span><span class="p">:</span><span class="w">           </span><span class="n">BBoxDrawStyle</span><span class="w">        </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="n">cornersOnly</span><span class="p">,</span>
 <a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="n">strokeWidth</span><span class="p">:</span><span class="w">         </span><span class="n">CGFloat</span><span class="w">              </span><span class="p">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
@@ -694,35 +768,67 @@
 <a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="n">showGuideFrame</span><span class="p">:</span><span class="w">      </span><span class="nb">Bool</span><span class="w">                 </span><span class="p">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
 <a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="n">progressBottomInset</span><span class="p">:</span><span class="w"> </span><span class="n">CGFloat</span><span class="w">              </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
 <a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="n">scanRoi</span><span class="p">:</span><span class="w">             </span><span class="n">CGRect</span><span class="p">?</span><span class="w">              </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w">       </span><span class="c1">// перекрывает configuration.scanRoi</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="n">onState</span><span class="p">:</span><span class="w">             </span><span class="p">((</span><span class="n">ScannerFrameState</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Void</span><span class="p">)?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w">  </span><span class="c1">// свой оверлей</span>
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="n">onResult</span><span class="p">:</span><span class="w">            </span><span class="p">@</span><span class="n">escaping</span><span class="w"> </span><span class="p">(</span><span class="n">MergenScanResult</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Void</span>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="p">)</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="n">torchOn</span><span class="p">:</span><span class="w">             </span><span class="n">Binding</span><span class="p">&lt;</span><span class="nb">Bool</span><span class="p">&gt;?</span><span class="w">       </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w">       </span><span class="c1">// nil → авто-фонарик SDK</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="n">onState</span><span class="p">:</span><span class="w">             </span><span class="p">((</span><span class="n">ScannerFrameState</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Void</span><span class="p">)?</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w">  </span><span class="c1">// свой оверлей</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span><span class="n">onResult</span><span class="p">:</span><span class="w">            </span><span class="p">@</span><span class="n">escaping</span><span class="w"> </span><span class="p">(</span><span class="n">MergenScanResult</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Void</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="p">)</span>
 </code></pre></div>
+<p>Режим сканирования, HQ-кроп и гейт дистанции на iOS задаются полями
+<code>configuration</code> — отдельных параметров у <code>MergenScanView</code> для них нет:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">MergenScanView</span><span class="p">(</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="n">side</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">front</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="n">license</span><span class="p">:</span><span class="w"> </span><span class="n">license</span><span class="p">,</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="n">configuration</span><span class="p">:</span><span class="w"> </span><span class="n">MergenScannerConfig</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">        </span><span class="nv">$0</span><span class="p">.</span><span class="n">scanMode</span><span class="w">        </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="n">post</span><span class="w">      </span><span class="c1">// .lite / .post / .live (по умолчанию)</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">        </span><span class="nv">$0</span><span class="p">.</span><span class="n">hqCropEnabled</span><span class="w">   </span><span class="p">=</span><span class="w"> </span><span class="kc">true</span><span class="w">       </span><span class="c1">// croppedPhotoHq в результате</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">        </span><span class="nv">$0</span><span class="p">.</span><span class="n">distanceGate</span><span class="w">    </span><span class="p">=</span><span class="w"> </span><span class="kc">true</span><span class="w">       </span><span class="c1">// по умолчанию true</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">        </span><span class="nv">$0</span><span class="p">.</span><span class="n">distanceMinFill</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mf">0.45</span><span class="w">       </span><span class="c1">// по умолчанию 0.45</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="p">},</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="n">onResult</span><span class="p">:</span><span class="w"> </span><span class="n">onResult</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="p">)</span>
+</code></pre></div>
+<p><strong>Живая проверка стороны включена всегда.</strong> С 2.8.0 <code>MergenScanView</code> сам ставит
+<code>liveVersionProbe = true</code>, как на Android, — значение из <code>configuration</code>
+игнорируется. При включённом side-gate (<code>enforceSideMatch</code>) «не та сторона» теперь
+видна сразу: статус <code>.wrongSide</code> и красная рамка до захвата. Раньше на iOS такая
+сторона отклонялась молча, и <code>.wrongSide</code> не приходил. Без side-gate поведение
+прежнее.</p>
 </div>
 <div class="tabbed-block">
 <p>Jetpack Compose.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">MergenScanView</span><span class="p">(</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="n">side</span><span class="w">                   </span><span class="p">:</span><span class="w"> </span><span class="n">MIDSide</span><span class="p">,</span><span class="w">                     </span><span class="c1">// FRONT / BACK</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="n">license</span><span class="w">                </span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">              </span><span class="c1">// null → license.json из assets</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="n">bboxColor</span><span class="w">              </span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">              </span><span class="c1">// hex &quot;RRGGBB&quot;/&quot;AARRGGBB&quot;</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="n">bboxStyle</span><span class="w">              </span><span class="p">:</span><span class="w"> </span><span class="n">BBoxDrawStyle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BBoxDrawStyle</span><span class="p">.</span><span class="na">CORNERS_ONLY</span><span class="p">,</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="n">cornerLengthDp</span><span class="w">         </span><span class="p">:</span><span class="w"> </span><span class="kt">Float?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="n">scanSpeed</span><span class="w">              </span><span class="p">:</span><span class="w"> </span><span class="n">ScanSpeed? </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">           </span><span class="c1">// FAST / NORMAL / THOROUGH</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="n">sideGate</span><span class="w">               </span><span class="p">:</span><span class="w"> </span><span class="n">SideGateConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SideGateConfig</span><span class="p">(),</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="n">progressBottomOffsetDp</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kt">Float?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="n">analyzeAnimEnabled</span><span class="w">     </span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="n">captureHintsEnabled</span><span class="w">    </span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="n">useUnifiedDetector</span><span class="w">     </span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">    </span><span class="n">liveVersionProbeConf</span><span class="w">   </span><span class="p">:</span><span class="w"> </span><span class="kt">Float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.65f</span><span class="p">,</span>
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">    </span><span class="n">showGuideFrame</span><span class="w">         </span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">    </span><span class="n">deviceTier</span><span class="w">             </span><span class="p">:</span><span class="w"> </span><span class="kt">Int?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">    </span><span class="n">scanRoi</span><span class="w">                </span><span class="p">:</span><span class="w"> </span><span class="n">RectF? </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">    </span><span class="n">deferBackMrz</span><span class="w">           </span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">    </span><span class="n">onError</span><span class="w">                </span><span class="p">:</span><span class="w"> </span><span class="p">((</span><span class="n">Throwable</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="o">?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">    </span><span class="n">onState</span><span class="w">                </span><span class="p">:</span><span class="w"> </span><span class="p">((</span><span class="n">ScannerFrameState</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="o">?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">  </span><span class="c1">// свой оверлей</span>
-<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">    </span><span class="n">onResult</span><span class="w">               </span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="n">MergenScanResult</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">,</span>
-<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">MergenScanView</span><span class="p">(</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="n">side</span><span class="w">                   </span><span class="p">:</span><span class="w"> </span><span class="n">MIDSide</span><span class="p">,</span><span class="w">                     </span><span class="c1">// FRONT / BACK</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="n">license</span><span class="w">                </span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">              </span><span class="c1">// null → license.json из assets</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="n">bboxColor</span><span class="w">              </span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">              </span><span class="c1">// hex &quot;RRGGBB&quot;/&quot;AARRGGBB&quot;</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="n">bboxStyle</span><span class="w">              </span><span class="p">:</span><span class="w"> </span><span class="n">BBoxDrawStyle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BBoxDrawStyle</span><span class="p">.</span><span class="na">CORNERS_ONLY</span><span class="p">,</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="n">cornerLengthDp</span><span class="w">         </span><span class="p">:</span><span class="w"> </span><span class="kt">Float?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="n">scanSpeed</span><span class="w">              </span><span class="p">:</span><span class="w"> </span><span class="n">ScanSpeed? </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">           </span><span class="c1">// FAST / NORMAL / THOROUGH</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="n">sideGate</span><span class="w">               </span><span class="p">:</span><span class="w"> </span><span class="n">SideGateConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SideGateConfig</span><span class="p">(),</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="n">progressBottomOffsetDp</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kt">Float?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="n">analyzeAnimEnabled</span><span class="w">     </span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="n">captureHintsEnabled</span><span class="w">    </span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">              </span><span class="c1">// тексты подсказок качества</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span><span class="n">useUnifiedDetector</span><span class="w">     </span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">    </span><span class="n">liveVersionProbeConf</span><span class="w">   </span><span class="p">:</span><span class="w"> </span><span class="kt">Float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.65f</span><span class="p">,</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">    </span><span class="n">showGuideFrame</span><span class="w">         </span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">    </span><span class="n">deviceTier</span><span class="w">             </span><span class="p">:</span><span class="w"> </span><span class="kt">Int?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">    </span><span class="n">scanRoi</span><span class="w">                </span><span class="p">:</span><span class="w"> </span><span class="n">RectF? </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">    </span><span class="n">deferBackMrz</span><span class="w">           </span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="w">    </span><span class="n">hqCropEnabled</span><span class="w">          </span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">             </span><span class="c1">// 2.8.0: croppedPhotoHq</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="w">    </span><span class="n">torchEnabled</span><span class="w">           </span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">             </span><span class="c1">// null → авто-фонарик SDK</span>
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="w">    </span><span class="n">scanMode</span><span class="w">               </span><span class="p">:</span><span class="w"> </span><span class="n">ScanMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ScanMode</span><span class="p">.</span><span class="na">LIVE</span><span class="p">,</span><span class="w">    </span><span class="c1">// 2.8.0: LITE / POST / LIVE</span>
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="w">    </span><span class="n">distanceGate</span><span class="w">           </span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">              </span><span class="c1">// 2.8.0: гейт дистанции</span>
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="w">    </span><span class="n">distanceMinFill</span><span class="w">        </span><span class="p">:</span><span class="w"> </span><span class="kt">Float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.45f</span><span class="p">,</span><span class="w">               </span><span class="c1">// 2.8.0</span>
+<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="w">    </span><span class="n">distanceMaxFill</span><span class="w">        </span><span class="p">:</span><span class="w"> </span><span class="kt">Float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1.0f</span><span class="p">,</span><span class="w">                </span><span class="c1">// 2.8.0</span>
+<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="w">    </span><span class="n">onError</span><span class="w">                </span><span class="p">:</span><span class="w"> </span><span class="p">((</span><span class="n">Throwable</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="o">?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="w">    </span><span class="n">onState</span><span class="w">                </span><span class="p">:</span><span class="w"> </span><span class="p">((</span><span class="n">ScannerFrameState</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="o">?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">  </span><span class="c1">// свой оверлей</span>
+<a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="w">    </span><span class="n">onResult</span><span class="w">               </span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="n">MergenScanResult</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">,</span>
+<a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a><span class="p">)</span>
 </code></pre></div>
+<p>Живая проверка стороны в <code>MergenScanView</code> на Android включена всегда (как и
+раньше); <code>liveVersionProbeConf</code> — её порог уверенности.</p>
+<p><strong>Звук затвора.</strong> С 2.8.0 Android, как и iOS, играет системный звук затвора на
+каждом снимке камеры (и один раз при завершении стороны, если она закрылась без
+снимка).</p>
 </div>
 </div>
 </div>
@@ -732,6 +838,10 @@
 side-gate'ом (см. «Конфигурация»).</p>
 <p>Когда задан <code>onState</code>, встроенные тексты SDK подавляются, и каждое состояние кадра
 приходит в вашу лямбду — см. «Свой UI поверх сканера».</p>
+<p><code>torchEnabled</code> (Android) / <code>torchOn</code> (iOS): <code>null</code> / <code>nil</code> — фонарик включается сам после
+серии тёмных кадров. Заданное значение — ручное управление (например, своя кнопка):
+применяется при каждом изменении, и авто-режим больше не вмешивается. Фактическое
+состояние фонарика приходит событием <code>TorchChanged</code> / <code>.torchChanged</code>.</p>
 <div class="admonition warning">
 <p class="admonition-title"><code>scanRoi</code> — оси различаются между платформами</p>
 <p>Зона сканирования задаётся в нормализованных координатах 0…1. Кадр обрезается <strong>до</strong>
@@ -742,39 +852,217 @@ side-gate'ом (см. «Конфигурация»).</p>
 iOS <code>CGRect(x: 0.05, y: 0.28, width: 0.90, height: 0.44)</code> ≡
 Android <code>RectF(0.28f, 0.05f, 0.72f, 0.95f)</code>.</p>
 </div>
-<h2 id="frame-gate">Кадр-гейт: палец на данных и авто-разворот<a class="headerlink" href="#frame-gate" title="Permanent link">&para;</a></h2>
-<p>Во время наведения SDK раз в 350 мс прогоняет по выпрямленному кропу карты отдельную
-модель кадр-гейта. Обе её функции включены по умолчанию и видны пользователю.</p>
+<h2 id="scan-mode">Режимы сканирования: Lite / Post / Live<a class="headerlink" href="#scan-mode" title="Permanent link">&para;</a></h2>
+<p>С 2.8.0 одним параметром <code>scanMode</code> выбирается, <strong>когда</strong> распознаётся текст. По
+умолчанию <code>LIVE</code> — поведение прежнее.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>LITE</code></th>
+<th><code>POST</code></th>
+<th><code>LIVE</code> (по умолчанию)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Кроп, сторона, поколение</td>
+<td>да</td>
+<td>да</td>
+<td>да</td>
+</tr>
+<tr>
+<td><code>docNumber</code>, <code>pin</code>, <code>mrz</code> в результате стороны</td>
+<td><strong>нет</strong></td>
+<td><strong>нет</strong></td>
+<td>да</td>
+</tr>
+<tr>
+<td>Когда появляются поля</td>
+<td>распознаёте у себя (на сервере)</td>
+<td>в <code>verifyCards</code> / <code>verify</code></td>
+<td>сразу</td>
+</tr>
+<tr>
+<td>Скорость захвата стороны</td>
+<td>быстрее всего</td>
+<td>быстро, без паузы на распознавание</td>
+<td>как раньше</td>
+</tr>
+<tr>
+<td>Модели распознавания в памяти</td>
+<td>не загружаются</td>
+<td>загружаются в фоне</td>
+<td>загружаются в фоне</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong><code>LITE</code></strong> — только детекция карты, выпрямленный кроп и проверка качества
+  (авто-разворот, палец после кропа). Для интеграторов, которые распознают на своём
+  сервере.</li>
+<li><strong><code>POST</code></strong> — стороны снимаются так же быстро, как в <code>LITE</code>, а распознавание
+  выполняется один раз, когда обе стороны сняты: <code>verifyCards</code> / <code>verify</code> распознают
+  сохранённые кропы тем же конвейером, что в <code>LIVE</code> (по одному кадру на сторону).
+  Поэтому <code>verifyCards</code> для таких сканов занимает секунды, а не ~1 мс — вызывайте из
+  фоновой задачи и показывайте индикатор.</li>
+<li><strong><code>LIVE</code></strong> — распознавание во время скана с накоплением по нескольким кадрам, поля
+  приходят в результате каждой стороны.</li>
+</ul>
+<p>Передавайте одно и то же значение для обеих сторон и в <code>warmUp</code> / <code>preload</code>. В
+<code>LITE</code> / <code>POST</code> параметр <code>deferBackMrz</code> не действует. <code>Mergen.verify</code> /
+<code>MergenSDK.verify</code> по фото из галереи всегда работает как <code>LIVE</code>, независимо от режима
+сканера.</p>
+<div class="admonition warning">
+<p class="admonition-title">В <code>LITE</code> / <code>POST</code> номера в результате стороны нет — это не ошибка</p>
+<p><code>docNumber == null</code> здесь по замыслу. Если ваш флоу не пускает к обороту без номера
+лицевой, проверяйте <strong><code>isOcrPending</code></strong>, а не <code>docNumber</code>:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">iOS</label><label for="__tabbed_3_2">Android</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kd">let</span><span class="w"> </span><span class="nv">canGoToBack</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">scan</span><span class="p">.</span><span class="n">isOcrPending</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">scan</span><span class="p">.</span><span class="n">docNumber</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">canGoToBack</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scan</span><span class="p">.</span><span class="na">isOcrPending</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">scan</span><span class="p">.</span><span class="na">docNumber</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<h2 id="hq-crop">HQ-кроп для отправки на сервер<a class="headerlink" href="#hq-crop" title="Permanent link">&para;</a></h2>
+<p><code>hqCropEnabled = true</code> (по умолчанию <code>false</code>) добавляет к результату <strong>отдельный</strong> кроп
+карты максимального качества — <code>croppedPhotoHq</code>. Обычный <code>croppedPhoto</code> (1280×800) не
+меняется.</p>
+<ul>
+<li>Та же карта и та же ориентация, что в <code>croppedPhoto</code>, но в родном разрешении карты в
+  кадре (не меньше 1280×800, длинная сторона до 4096), с полем 2.5 % по краям.</li>
+<li>Формат — JPEG максимального качества (<code>ByteArray</code> на Android, <code>Data</code> на iOS).
+  Отправляйте как есть: повторное сжатие съест выигрыш. Объём — несколько МБ на
+  сторону; сверьте с лимитами своего сервера.</li>
+<li>Под флагом каждая сторона закрывается по настоящему снимку камеры в большем
+  разрешении (при <code>useStillCapture = true</code>, по умолчанию) — это немного дольше и требует больше памяти. Разрешение HQ-кропа равно
+  размеру карты на снимке: чем ближе карта, тем крупнее кроп.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Когда <code>croppedPhotoHq</code> пустой</p>
+<p>Поле может быть <code>null</code> / <code>nil</code> и при включённом флаге: например, если сторона
+закрылась по запасному кропу. Всегда держите запасной путь на <code>croppedPhoto</code>.
+Фото из галереи (<code>verify</code>) HQ-кроп не заполняют. На Android <code>MergenIdResult.croppedImageHq</code>
+не переживает передачу через <code>Intent</code> / <code>Parcel</code> (лимит Binder) — после неё поле <code>null</code>.</p>
+</div>
+<h2 id="distance-gate">Гейт дистанции<a class="headerlink" href="#distance-gate" title="Permanent link">&para;</a></h2>
+<p>С 2.8.0 сканер <strong>не снимает</strong> карту, которая слишком далеко (мелко в кадре) или
+вылезает за рамку сканирования. Пока дистанция не подходит, скан продолжается, а
+статус — <code>TooFar</code> («поднесите ближе») или <code>TooClose</code> («отодвиньте»).</p>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>По умолчанию</th>
+<th>Что делает</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>distanceGate</code></td>
+<td><code>true</code></td>
+<td>гейт включён; <code>false</code> — прежнее поведение (подсказка без запрета захвата)</td>
+</tr>
+<tr>
+<td><code>distanceMinFill</code></td>
+<td><code>0.45</code></td>
+<td>минимальное заполнение для захвата (0.0…0.9); ниже — <code>TooFar</code></td>
+</tr>
+<tr>
+<td><code>distanceMaxFill</code></td>
+<td><code>1.0</code></td>
+<td>максимальное заполнение (0.5…1.0); выше — <code>TooClose</code>. Карта, касающаяся края рамки, — <code>TooClose</code> всегда</td>
+</tr>
+</tbody>
+</table>
+<p>Заполнение — это длина карты относительно наибольшей, что помещается в <code>scanRoi</code> (или в
+кадр, если зона не задана): <code>1.0</code> — карта касается краёв рамки. Текущее значение
+доступно в <code>ScannerFrameState.cardFill</code> — его можно показать пользователю.</p>
+<ul>
+<li>Защита от зависания: если «слишком близко» держится непрерывно 8 с, запрет снимается
+  до конца стороны. Для «слишком далеко» такого снятия нет — поднести ближе можно всегда.</li>
+<li>Не поднимайте <code>distanceMinFill</code> выше ~0.55 без проверки на устройствах: на iPhone
+  13–15 Pro ближе ~20 см камера не фокусируется.</li>
+<li>Фото из галереи (<code>verify</code>) гейт не затрагивает.</li>
+</ul>
+<h2 id="frame-gate">Проверка качества: палец на фото и авто-разворот<a class="headerlink" href="#frame-gate" title="Permanent link">&para;</a></h2>
+<p>SDK прогоняет выпрямленный кроп карты через отдельную модель проверки качества. Обе её
+функции включены по умолчанию.</p>
 <p><strong>Перевёрнутая карта разворачивается сама.</strong> Ориентация определяется до распознавания
 (точность 0.9963 на реальных кропах), и в OCR кроп уходит уже «головой вверх». Раньше
-перевёрнутый документ стоил повторного прогона всего каскада — на устройстве это секунды
-ожидания, — и мог получить неверно определённую сторону.</p>
-<p><strong>Палец на данных блокирует захват.</strong> Пока помеха видна:</p>
-<ul>
-<li>рамка карты горит цветом <code>colorFailure</code> (по умолчанию красным) — так же, как при
-  отклонении по стороне документа;</li>
-<li><code>messageTitle</code> называет закрытое поле: «Уберите палец с номера документа»,
-  «Уберите палец с MRZ», «Уберите палец с фото». Когда поле назвать не удалось —
-  «Уберите палец с документа»;</li>
-<li>скан не завершается сам собой: захват удерживается, пока палец не уберут.</li>
-</ul>
-<p>Порог выставлен консервативно: на реальных кадрах помеха ловится в 11 случаях из 12,
-а ложных срабатываний нет ни на 68 чистых кропах, ни на 12 кадрах «карту держат за кромку»,
-ни на 38 лицевых сторонах с портретом — портрет владельца за палец не принимается.
-Закрытое поле называется верно примерно в 8 случаях из 10.</p>
-<p>Предохранитель: если помеха «видна» непрерывно дольше 20 с, блокировка снимается. Ложное
-срабатывание не должно превращаться в «документ невозможно отсканировать».</p>
-<p>Проверки тени и грязи в модели есть, но <strong>выключены по умолчанию</strong> — почему именно,
-написано в <a href="config.html#frame-gate">«Конфигурации»</a> вместе со всеми ключами гейта.</p>
-<p>Своему UI помеха доступна тремя способами сразу — они не могут разойтись: статус
-<code>ScanStatus.Occluded</code> / <code>.occluded</code>, поля кадра <code>isFingerOccluded</code> / <code>isShadowed</code> /
-<code>occlusionType</code> / <code>occludedFieldId</code> и готовая строка <code>messageTitle</code>.</p>
-<div class="admonition danger">
-<p class="admonition-title">Ломающее изменение 2.6.0</p>
-<p>Статус <code>Occluded</code> / <code>.occluded</code> добавлен в существующее перечисление <code>ScanStatus</code>:
-исчерпывающие <code>when</code> (Kotlin) и <code>switch</code> (Swift) без новой ветки не соберутся.
-Примеры миграции — в разделе <a href="states.html#scanstatus">«Состояния и события»</a>.</p>
+перевёрнутый документ стоил повторного прогона всего распознавания — на устройстве это
+секунды ожидания, — и мог получить неверно определённую сторону.</p>
+<p><strong>Палец не блокирует захват (с 2.8.0).</strong> Сторона снимается, даже если модель видит палец
+на кадрах наведения: ложные срабатывания на живой камере задерживали лицевую сторону до
+17 с. Вместо блокировки <strong>готовый кроп проверяется ещё раз после съёмки</strong>, и результат
+приходит флагом:</p>
+<table>
+<thead>
+<tr>
+<th>Поле результата</th>
+<th>Тип</th>
+<th>Что означает</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fingerOnPhoto</code></td>
+<td><code>Bool</code></td>
+<td>на итоговом кропе этой стороны виден палец</td>
+</tr>
+<tr>
+<td><code>photoOcclusionNote</code></td>
+<td><code>String?</code></td>
+<td>какое поле перекрыто, по-русски: «Палец на зоне: номера документа», «Тень на зоне: фото»; <code>null</code> / <code>nil</code>, если поле назвать не удалось или помехи нет</td>
+</tr>
+</tbody>
+</table>
+<p>Поля есть в <code>MergenScanResult</code> и <code>MergenIdResult</code> обеих платформ. Переснимать ли сторону,
+решает приложение — например, показать кроп и предложить «переснять», если
+<code>fingerOnPhoto == true</code>:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">iOS</label><label for="__tabbed_4_2">Android</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">MergenScanView</span><span class="p">(</span><span class="n">side</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">front</span><span class="p">,</span><span class="w"> </span><span class="n">license</span><span class="p">:</span><span class="w"> </span><span class="n">license</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">scan</span><span class="w"> </span><span class="k">in</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">scan</span><span class="p">.</span><span class="n">fingerOnPhoto</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">        </span><span class="n">askToRetake</span><span class="p">(</span><span class="n">scan</span><span class="p">.</span><span class="n">photoOcclusionNote</span><span class="w"> </span><span class="p">??</span><span class="w"> </span><span class="s">&quot;Палец закрывает данные — переснимите сторону&quot;</span><span class="p">)</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">        </span><span class="n">proceed</span><span class="p">(</span><span class="n">scan</span><span class="p">)</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="p">}</span>
+</code></pre></div>
 </div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">MergenScanView</span><span class="p">(</span><span class="n">side</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MIDSide</span><span class="p">.</span><span class="na">FRONT</span><span class="p">,</span><span class="w"> </span><span class="n">license</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">license</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">scan</span><span class="w"> </span><span class="o">-&gt;</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">scan</span><span class="p">.</span><span class="na">fingerOnPhoto</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">        </span><span class="n">askToRetake</span><span class="p">(</span><span class="n">scan</span><span class="p">.</span><span class="na">photoOcclusionNote</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="s">&quot;Палец закрывает данные — переснимите сторону&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">        </span><span class="n">proceed</span><span class="p">(</span><span class="n">scan</span><span class="p">)</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Известное ложное срабатывание — чистая карта в густой тени руки. Для фото из галереи
+то же правило действует в <code>verify</code>: фото не отклоняется из-за пальца, а флаг приходит в
+<code>frontOcclusion</code> / <code>backOcclusion</code> (см. <a href="verify.html#occlusion">«Верификация»</a>).</p>
+<div class="admonition note">
+<p class="admonition-title">Как было до 2.8.0</p>
+<p>В 2.6.0–2.7.x палец на данных <strong>блокировал захват</strong>: рамка краснела, подсказка
+называла закрытое поле («Уберите палец с номера документа»), статус был <code>Occluded</code>.
+С 2.8.0 в живом скане этого больше нет: <code>ScanStatus.Occluded</code> / <code>.occluded</code> и
+<code>isFingerOccluded</code> до захвата не приходят. Кейс <code>Occluded</code> остался в перечислении
+<code>ScanStatus</code> для совместимости — ветку в <code>when</code> / <code>switch</code> удалять не нужно.</p>
+</div>
+<p>Проверки тени и грязи в модели есть, но <strong>выключены по умолчанию</strong> — почему именно,
+написано в <a href="config.html#frame-gate">«Конфигурации»</a> вместе со всеми ключами проверки.</p>
 <h2 id="mergenscanresult"><code>MergenScanResult</code> — результат скана стороны<a class="headerlink" href="#mergenscanresult" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -808,7 +1096,7 @@ Android <code>RectF(0.28f, 0.05f, 0.72f, 0.95f)</code>.</p>
 <tr>
 <td><code>docNumber</code></td>
 <td><code>String?</code></td>
-<td>номер документа, прочитанный с этой стороны</td>
+<td>номер документа, прочитанный с этой стороны (в <code>LITE</code> / <code>POST</code> — всегда пусто, см. <code>isOcrPending</code>)</td>
 </tr>
 <tr>
 <td><code>pin</code></td>
@@ -823,7 +1111,32 @@ Android <code>RectF(0.28f, 0.05f, 0.72f, 0.95f)</code>.</p>
 <tr>
 <td><code>croppedPhoto</code></td>
 <td><code>UIImage?</code> / <code>Bitmap?</code></td>
-<td>кроп карты с коррекцией перспективы; <code>nil</code> при недостаточном качестве</td>
+<td>кроп карты с коррекцией перспективы, 1280×800; <code>nil</code> при недостаточном качестве</td>
+</tr>
+<tr>
+<td><code>croppedPhotoHq</code></td>
+<td><code>Data?</code> / <code>ByteArray?</code></td>
+<td><strong>2.8.0</strong> — HQ-кроп (JPEG) при <code>hqCropEnabled = true</code>, иначе <code>nil</code>; см. <a href="#hq-crop">HQ-кроп</a></td>
+</tr>
+<tr>
+<td><code>fingerOnPhoto</code></td>
+<td><code>Bool</code></td>
+<td><strong>2.8.0</strong> — палец на итоговом кропе; скан не задерживался, см. <a href="#frame-gate">проверку качества</a></td>
+</tr>
+<tr>
+<td><code>photoOcclusionNote</code></td>
+<td><code>String?</code></td>
+<td><strong>2.8.0</strong> — какое поле перекрыто на итоговом кропе</td>
+</tr>
+<tr>
+<td><code>scanMode</code></td>
+<td><code>ScanMode</code></td>
+<td><strong>2.8.0</strong> — режим, в котором снята сторона</td>
+</tr>
+<tr>
+<td><code>isOcrPending</code></td>
+<td><code>Bool</code></td>
+<td><strong>2.8.0</strong> — сторона снята без распознавания (<code>LITE</code> / <code>POST</code>), поля пусты по замыслу</td>
 </tr>
 <tr>
 <td><code>hasSideSnapshot</code></td>
@@ -835,9 +1148,10 @@ Android <code>RectF(0.28f, 0.05f, 0.72f, 0.95f)</code>.</p>
 <p>Готовые признаки для UX:</p>
 <ul>
 <li><code>side != detectedSide</code> — «показана не та сторона»;</li>
-<li>расхождение <code>generation</code> между сторонами — вероятно, две разные карты.</li>
+<li>расхождение <code>generation</code> между сторонами — вероятно, две разные карты;</li>
+<li><code>fingerOnPhoto</code> — предложить переснять сторону.</li>
 </ul>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">MergenDocGeneration</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">case</span><span class="w"> </span><span class="n">y2008</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;2008&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">case</span><span class="w"> </span><span class="n">y2017</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;2017&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">case</span><span class="w"> </span><span class="n">y2025</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;2025&quot;</span><span class="w"> </span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="nc">MergenDocGeneration</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">case</span><span class="w"> </span><span class="n">y2008</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;2008&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">case</span><span class="w"> </span><span class="n">y2017</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;2017&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">case</span><span class="w"> </span><span class="n">y2025</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;2025&quot;</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
 <ul>
 <li><code>y2008</code> — ПИН напечатан на лицевой стороне;</li>

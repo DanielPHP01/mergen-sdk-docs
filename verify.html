@@ -421,10 +421,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#261" class="md-nav__link">
+  <a href="#occlusion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Причина отказа: палец или тень (2.6.1)
+        Палец или тень на фото
       
     </span>
   </a>
@@ -646,10 +646,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#261" class="md-nav__link">
+  <a href="#occlusion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Причина отказа: палец или тень (2.6.1)
+        Палец или тень на фото
       
     </span>
   </a>
@@ -713,8 +713,9 @@
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1">// По двум фотографиям</span>
 <a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="kd">let</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">MergenSDK</span><span class="p">.</span><span class="n">verify</span><span class="p">(</span><span class="n">front</span><span class="p">:</span><span class="w"> </span><span class="n">frontImage</span><span class="p">,</span><span class="w"> </span><span class="n">back</span><span class="p">:</span><span class="w"> </span><span class="n">backImage</span><span class="p">,</span><span class="w"> </span><span class="n">license</span><span class="p">:</span><span class="w"> </span><span class="n">license</span><span class="p">)</span>
 <a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c1">// Мгновенная stateless-сверка двух сканов камеры (~1 мс, без повторного OCR)</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="kd">let</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">MergenSDK</span><span class="p">.</span><span class="n">verifyCards</span><span class="p">(</span><span class="n">front</span><span class="p">:</span><span class="w"> </span><span class="n">frontScan</span><span class="p">,</span><span class="w"> </span><span class="n">back</span><span class="p">:</span><span class="w"> </span><span class="n">backScan</span><span class="p">,</span><span class="w"> </span><span class="n">license</span><span class="p">:</span><span class="w"> </span><span class="n">license</span><span class="p">)</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c1">// Мгновенная stateless-сверка двух сканов камеры (~1 мс, без повторного OCR;</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="c1">// для сканов в режиме POST / LITE — сначала распознавание кропов, секунды)</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="kd">let</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">MergenSDK</span><span class="p">.</span><span class="n">verifyCards</span><span class="p">(</span><span class="n">front</span><span class="p">:</span><span class="w"> </span><span class="n">frontScan</span><span class="p">,</span><span class="w"> </span><span class="n">back</span><span class="p">:</span><span class="w"> </span><span class="n">backScan</span><span class="p">,</span><span class="w"> </span><span class="n">license</span><span class="p">:</span><span class="w"> </span><span class="n">license</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -730,14 +731,18 @@
 <a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1">// По двум фотографиям (suspend)</span>
 <a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Mergen</span><span class="p">.</span><span class="na">verify</span><span class="p">(</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="n">frontBitmap</span><span class="p">,</span><span class="w"> </span><span class="n">backBitmap</span><span class="p">,</span><span class="w"> </span><span class="n">license</span><span class="p">)</span>
 <a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="c1">// Мгновенная stateless-сверка двух сканов камеры (~1 мс, без повторного OCR)</span>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Mergen</span><span class="p">.</span><span class="na">verifyCards</span><span class="p">(</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="n">frontScan</span><span class="p">,</span><span class="w"> </span><span class="n">backScan</span><span class="p">,</span><span class="w"> </span><span class="n">license</span><span class="p">)</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="c1">// Мгновенная stateless-сверка двух сканов камеры (~1 мс, без повторного OCR;</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="c1">// для сканов в режиме POST / LITE — сначала распознавание кропов, секунды)</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Mergen</span><span class="p">.</span><span class="na">verifyCards</span><span class="p">(</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="n">frontScan</span><span class="p">,</span><span class="w"> </span><span class="n">backScan</span><span class="p">,</span><span class="w"> </span><span class="n">license</span><span class="p">)</span>
 </code></pre></div>
 </div>
 </div>
 </div>
 <p>Как выбирается путь в универсальном <code>verify</code>:</p>
 <ul>
+<li>стороны сняты в режиме <code>POST</code> / <code>LITE</code> (<code>isOcrPending == true</code>) → <code>verify</code> и
+  <code>verifyCards</code> сначала распознают сохранённые кропы (секунды; см.
+  <a href="scan.html#scan-mode">«Режимы сканирования»</a>), затем сверяют стороны;</li>
 <li>обе стороны — сканы камеры со снимками (<code>hasSideSnapshot == true</code>) → сначала мгновенная
   stateless-сверка; если вердикт однозначен (успех или явное несовпадение документов) —
   он и возвращается; иначе автоматически запускается полный OCR-пайплайн по кропам;</li>
@@ -847,7 +852,7 @@
 <tr>
 <td><code>frontOcclusion</code> / <code>backOcclusion</code></td>
 <td><code>OcclusionType</code></td>
-<td><strong>новое в 2.6.1</strong> — заслонение стороны по вердикту кадр-гейта: <code>finger</code> / <code>shadow</code> / <code>none</code>; заполняется на image-входах (галерея)</td>
+<td>с 2.6.1 — заслонение стороны по проверке готового кропа: <code>finger</code> / <code>shadow</code> / <code>none</code>; заполняется на image-входах (галерея). С 2.8.0 — только флаг: сторона из-за пальца не отклоняется</td>
 </tr>
 <tr>
 <td><code>frontPhoto</code> / <code>backPhoto</code></td>
@@ -943,17 +948,22 @@
 </tr>
 </tbody>
 </table>
-<h2 id="261">Причина отказа: палец или тень (2.6.1)<a class="headerlink" href="#261" title="Permanent link">&para;</a></h2>
-<p>Когда сторона подана изображением (галерея) и кадр-гейт видит заслонение,
-<code>frontOcclusion</code> / <code>backOcclusion</code> называют причину — проверяйте их <strong>раньше</strong>
-<code>frontIssue</code>/<code>backIssue</code> и показывайте адресный текст:</p>
+<h2 id="occlusion">Палец или тень на фото<a class="headerlink" href="#occlusion" title="Permanent link">&para;</a></h2>
+<p>Когда сторона подана изображением (галерея) и на готовом кропе видно заслонение,
+<code>frontOcclusion</code> / <code>backOcclusion</code> называют его.</p>
+<p><strong>С 2.8.0 фото из-за пальца не отклоняется</strong>: распознавание идёт как обычно (в том
+числе в режиме <code>POST</code>), а флаг приходит в результате — решение за приложением. Если
+сторона при этом не прочиталась, флаг подсказывает адресный текст вместо общего
+«сторона не распозналась». В 2.6.1–2.7.x палец на фото проваливал сторону, и флаг был
+причиной отказа.</p>
+<p>Проверяйте флаг <strong>раньше</strong> <code>frontIssue</code> / <code>backIssue</code>:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">iOS</label><label for="__tabbed_2_2">Android</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">let</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">MergenSDK</span><span class="p">.</span><span class="n">verify</span><span class="p">(</span><span class="n">front</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">image</span><span class="p">(</span><span class="n">f</span><span class="p">),</span><span class="w"> </span><span class="n">back</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">image</span><span class="p">(</span><span class="n">b</span><span class="p">),</span><span class="w"> </span><span class="n">license</span><span class="p">:</span><span class="w"> </span><span class="n">license</span><span class="p">)</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">switch</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">frontOcclusion</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">finger</span><span class="p">:</span><span class="w"> </span><span class="n">showError</span><span class="p">(</span><span class="s">&quot;Палец закрывает данные на лицевой стороне — переснимите её&quot;</span><span class="p">)</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">shadow</span><span class="p">:</span><span class="w"> </span><span class="n">showError</span><span class="p">(</span><span class="s">&quot;Тень закрывает данные на лицевой стороне — переснимите её&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">finger</span><span class="p">:</span><span class="w"> </span><span class="n">suggestRetake</span><span class="p">(</span><span class="s">&quot;Палец закрывает данные на лицевой стороне — переснимите её&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="n">shadow</span><span class="p">:</span><span class="w"> </span><span class="n">suggestRetake</span><span class="p">(</span><span class="s">&quot;Тень закрывает данные на лицевой стороне — переснимите её&quot;</span><span class="p">)</span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">case</span><span class="w"> </span><span class="p">.</span><span class="kr">none</span><span class="p">:</span><span class="w">   </span><span class="k">break</span><span class="w"> </span><span class="c1">// разбирайте status / frontIssue как обычно</span>
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">}</span>
 </code></pre></div>
@@ -961,16 +971,18 @@
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Mergen</span><span class="p">.</span><span class="na">verify</span><span class="p">(</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="n">front</span><span class="p">,</span><span class="w"> </span><span class="n">back</span><span class="p">,</span><span class="w"> </span><span class="n">license</span><span class="p">)</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">when</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="na">frontOcclusion</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">OcclusionType</span><span class="p">.</span><span class="na">FINGER</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">showError</span><span class="p">(</span><span class="s">&quot;Палец закрывает данные на лицевой стороне — переснимите её&quot;</span><span class="p">)</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="n">OcclusionType</span><span class="p">.</span><span class="na">SHADOW</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">showError</span><span class="p">(</span><span class="s">&quot;Тень закрывает данные на лицевой стороне — переснимите её&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">OcclusionType</span><span class="p">.</span><span class="na">FINGER</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">suggestRetake</span><span class="p">(</span><span class="s">&quot;Палец закрывает данные на лицевой стороне — переснимите её&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="n">OcclusionType</span><span class="p">.</span><span class="na">SHADOW</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">suggestRetake</span><span class="p">(</span><span class="s">&quot;Тень закрывает данные на лицевой стороне — переснимите её&quot;</span><span class="p">)</span>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">OcclusionType</span><span class="p">.</span><span class="na">NONE</span><span class="w">   </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="w"> </span><span class="c1">// разбирайте status / frontIssue как обычно</span>
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">}</span>
 </code></pre></div>
 </div>
 </div>
 </div>
-<p>Для стороны, снятой живой камерой, значение всегда <code>none</code> — там палец блокируется
-ещё в момент съёмки (см. <a href="states.html">Состояния сканирования</a>).</p>
+<p>Для стороны, снятой живой камерой (<code>.scan</code> / <code>MergenSideInput.Scan</code>), значение <code>none</code>:
+палец на её кропе SDK отдаёт ещё при скане — в <code>MergenScanResult.fingerOnPhoto</code> /
+<code>photoOcclusionNote</code> (см. <a href="scan.html#frame-gate">«Сканирование»</a>). С 2.8.0 палец не
+блокирует захват ни в живом скане, ни в <code>verify</code>.</p>
 <p><code>SameDocumentVerdict</code>:</p>
 <table>
 <thead>

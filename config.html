@@ -662,7 +662,8 @@
 <h1 id="_1">Конфигурация<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <p>Полный набор параметров движка и камеры — <strong><code>MergenScannerConfig</code></strong>. Передаётся в
 <code>MergenScannerView</code> / headless-хэндл; у <code>MergenScanView</code> ходовые параметры вынесены
-в сигнатуру (iOS дополнительно принимает весь конфиг через <code>configuration:</code>).</p>
+в сигнатуру (iOS принимает весь конфиг через <code>configuration:</code> — так задаются и
+<code>scanMode</code>, <code>hqCropEnabled</code>, <code>distanceGate</code> на iOS).</p>
 <p>Готовые пресеты порогов: <code>strict</code> (0.65 / 0.80 / 8 кадров) и <code>relaxed</code> (0.40 / 0.55 / 3).</p>
 <h2 id="_2">Сборка<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">iOS</label><label for="__tabbed_1_2">Android</label></div>
@@ -673,7 +674,10 @@
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nv">$0</span><span class="p">.</span><span class="n">expectedSide</span><span class="w">     </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="n">front</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="nv">$0</span><span class="p">.</span><span class="n">liveVersionProbe</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">true</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nv">$0</span><span class="p">.</span><span class="n">scanSpeed</span><span class="w">        </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="n">normal</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">}</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nv">$0</span><span class="p">.</span><span class="n">scanMode</span><span class="w">         </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="n">live</span><span class="w">       </span><span class="c1">// 2.8.0: .lite / .post / .live</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nv">$0</span><span class="p">.</span><span class="n">hqCropEnabled</span><span class="w">    </span><span class="p">=</span><span class="w"> </span><span class="kc">false</span><span class="w">       </span><span class="c1">// 2.8.0</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nv">$0</span><span class="p">.</span><span class="n">distanceGate</span><span class="w">     </span><span class="p">=</span><span class="w"> </span><span class="kc">true</span><span class="w">        </span><span class="c1">// 2.8.0, по умолчанию true</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">}</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -681,7 +685,10 @@
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">sideGate</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="n">SideGateConfig</span><span class="p">.</span><span class="na">frontOnly</span><span class="p">(),</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">liveVersionProbe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">scanSpeed</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="n">ScanSpeed</span><span class="p">.</span><span class="na">NORMAL</span><span class="p">,</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">)</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">scanMode</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="n">ScanMode</span><span class="p">.</span><span class="na">LIVE</span><span class="p">,</span><span class="w">   </span><span class="c1">// 2.8.0: LITE / POST / LIVE</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="n">hqCropEnabled</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">           </span><span class="c1">// 2.8.0</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="n">distanceGate</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">            </span><span class="c1">// 2.8.0, по умолчанию true</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="p">)</span>
 </code></pre></div>
 </div>
 </div>
@@ -744,7 +751,7 @@
 <tr>
 <td><code>liveVersionProbe</code></td>
 <td><code>false</code></td>
-<td>классификация версии на каждом кадре — мгновенная красная рамка на «не той» стороне</td>
+<td>классификация версии на каждом кадре — мгновенная красная рамка на «не той» стороне. У <code>MergenScanView</code> обеих платформ включена всегда (на iOS — с 2.8.0), значение поля там не действует</td>
 </tr>
 <tr>
 <td><code>liveVersionProbeConf</code></td>
@@ -752,9 +759,9 @@
 <td>порог уверенности пробника (0.20…1.0); ниже — гейт нейтрален</td>
 </tr>
 <tr>
-<td><code>showCaptureTips</code> (<code>showCaptureHints</code>)</td>
+<td><code>showCaptureTips</code> (<code>showCaptureHints</code>; у Android <code>MergenScanView</code> — <code>captureHintsEnabled</code>)</td>
 <td><code>true</code></td>
-<td>подсказки «поднесите ближе / отодвиньте / слишком темно / слишком ярко». Причину <strong>заблокированного</strong> захвата не гасит: красная рамка и статус <code>Occluded</code> остаются в любом случае (текст «Уберите палец с …» на iOS тоже остаётся, на Android — гаснет)</td>
+<td>тексты подсказок «поднесите ближе / отодвиньте / слишком темно / слишком ярко». Статусы <code>TooFar</code> / <code>TooClose</code> гейта дистанции приходят и при <code>false</code></td>
 </tr>
 <tr>
 <td><code>autoTorch</code></td>
@@ -775,6 +782,31 @@
 <td><code>useUnifiedDetector</code></td>
 <td><code>true</code></td>
 <td>единый проход «детекция + классификация стороны»</td>
+</tr>
+<tr>
+<td><code>scanMode</code></td>
+<td><code>LIVE</code></td>
+<td><strong>2.8.0</strong> — когда распознаётся текст: <code>LITE</code> / <code>POST</code> / <code>LIVE</code>; см. <a href="scan.html#scan-mode">«Режимы сканирования»</a>. Передавайте то же значение в <code>warmUp</code> / <code>preload</code></td>
+</tr>
+<tr>
+<td><code>hqCropEnabled</code></td>
+<td><code>false</code></td>
+<td><strong>2.8.0</strong> — дополнительный кроп максимального качества <code>croppedPhotoHq</code> для сервера; см. <a href="scan.html#hq-crop">«HQ-кроп»</a></td>
+</tr>
+<tr>
+<td><code>distanceGate</code></td>
+<td><code>true</code></td>
+<td><strong>2.8.0</strong> — не захватывать карту, которая слишком далеко или вылезает за рамку (статусы <code>TooFar</code> / <code>TooClose</code>); <code>false</code> — прежнее поведение. См. <a href="scan.html#distance-gate">«Гейт дистанции»</a></td>
+</tr>
+<tr>
+<td><code>distanceMinFill</code></td>
+<td><code>0.45</code></td>
+<td><strong>2.8.0</strong> — минимальное заполнение рамки картой для захвата (0.0…0.9)</td>
+</tr>
+<tr>
+<td><code>distanceMaxFill</code></td>
+<td><code>1.0</code></td>
+<td><strong>2.8.0</strong> — максимальное заполнение (0.5…1.0); карта на краю рамки — «слишком близко» всегда</td>
 </tr>
 <tr>
 <td><code>deferBackMrz</code></td>
@@ -806,10 +838,11 @@
 </div>
 </div>
 <h2 id="frame-gate">Кадр-гейт: палец, тень, грязь<a class="headerlink" href="#frame-gate" title="Permanent link">&para;</a></h2>
-<p>Перед каждой попыткой захвата — и раз в 350 мс во время наведения — SDK прогоняет по
-выпрямленному кропу карты отдельную модель кадр-гейта. Она разворачивает перевёрнутую
-карту до распознавания и блокирует захват, когда на данных лежит палец
-(поведение и тексты подсказок — в разделе «Сканирование»).</p>
+<p>SDK прогоняет по выпрямленному кропу карты отдельную модель проверки качества. Она
+разворачивает перевёрнутую карту до распознавания и проверяет <strong>готовый кроп</strong> на палец:
+с 2.8.0 результат приходит флагом <code>fingerOnPhoto</code> / <code>photoOcclusionNote</code> (скан камерой) и
+<code>frontOcclusion</code> / <code>backOcclusion</code> (<code>verify</code>), а захват <strong>не блокируется</strong> — ни в живом
+скане, ни в <code>verify</code> (поведение — в разделе <a href="scan.html#frame-gate">«Сканирование»</a>).</p>
 <p>Модель входит в комплект SDK (≈2.8 МБ), добавлять в приложение ничего не нужно.
 Значения по умолчанию рассчитаны на боевую съёмку и в обычной интеграции не меняются:</p>
 <table>
@@ -834,7 +867,7 @@
 <tr>
 <td><code>quality_gate_finger_threshold</code></td>
 <td><code>0.99</code></td>
-<td>порог «палец на данных»; при срабатывании захват <strong>блокируется</strong>. Значение &gt; 1.0 выключает проверку</td>
+<td>порог «палец на данных» для проверки готового кропа (флаг <code>fingerOnPhoto</code> / <code>frontOcclusion</code>). С 2.8.0 захват не блокирует. Значение &gt; 1.0 выключает проверку</td>
 </tr>
 <tr>
 <td><code>quality_gate_shadow_threshold</code></td>
@@ -849,17 +882,17 @@
 <tr>
 <td><code>quality_gate_field_coverage</code></td>
 <td><code>0.25</code></td>
-<td>какую долю площади поля должна закрывать помеха, чтобы поле было названо в подсказке</td>
+<td>какую долю площади поля должна закрывать помеха, чтобы поле было названо в <code>photoOcclusionNote</code></td>
 </tr>
 <tr>
 <td><code>quality_gate_probe_interval_ms</code></td>
 <td><code>350</code></td>
-<td>как часто опрашивать модель во время наведения; <code>0</code> — только в момент попытки захвата</td>
+<td>как часто опрашивать модель во время наведения. С 2.8.0 вердикты до захвата ни на что не влияют</td>
 </tr>
 <tr>
 <td><code>quality_gate_block_timeout_ms</code></td>
 <td><code>20000</code></td>
-<td>предохранитель: непрерывная блокировка дольше этого времени снимается, чтобы камера не «зависла»</td>
+<td>предохранитель блокировки 2.6.0–2.7.x; с 2.8.0 блокировки нет, ключ не действует</td>
 </tr>
 </tbody>
 </table>
@@ -874,7 +907,7 @@
 поэтому «грязь закрывает поле N» SDK не отчитывает в принципе.</p>
 <p>Обе проверки останутся выключенными, пока не появятся данные, на которых их можно
 честно откалибровать. Включать их «на всякий случай» не нужно: ложное срабатывание
-здесь стоит дороже пропуска — оно не даёт отсканировать нормальный документ.</p>
+здесь стоит дороже пропуска.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Где задаются</p>
